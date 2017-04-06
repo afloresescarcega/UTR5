@@ -1,0 +1,7 @@
+#visual studios
+*.sln
+*.sdf
+*.opensdf
+*.vcxproj
+*.vcxproj.filters
+*.suo
