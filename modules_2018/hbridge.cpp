@@ -2,6 +2,8 @@
 #include "hbridge.h"
 #include "pins.h"
 
+#define LOW 0
+#define HIGH 1
 
 HBridgeMotor::HBridgeMotor(int motorEnableAPin, int motorEnableBPin, int motorPWMPin) {
 	motorEnableA = motorEnableAPin;
