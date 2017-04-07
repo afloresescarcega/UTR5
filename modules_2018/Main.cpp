@@ -2,13 +2,18 @@
 #include <vector>
 #include <wiringPi.h>
 #include "hbridge.h"
-#include "pins.h"
+#include "io.h"
 
 //for other controllers replace pins
 //when you compile this code on a raspberry pi, make sure wiringpi is installed
 //to compile: go to directory, compile and link wiringPi and softPwm
 //	g++ -o main Main.cpp hbridge.cpp pins.cpp -l wiringPi -l pthread
 //to run: ./main
+
+//pin definitions
+int motorEnableA[] = { 5, 13 };
+int motorEnableB[] = { 6, 19 };
+int motorPWM[] = { 20, 21 };
 
 int main(int argc, char*argv[]) {
 	initGPIO();

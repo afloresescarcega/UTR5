@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "hbridge.h"
-#include "pins.h"
+#include "io.h"
 
 #define LOW 0
 #define HIGH 1
