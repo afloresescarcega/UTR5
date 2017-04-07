@@ -7,7 +7,7 @@
 //for other controllers replace pins
 //when you compile this code on a raspberry pi, make sure wiringpi is installed
 //to compile: go to directory, compile and link wiringPi and softPwm
-//	g++ -o main Main.cpp hbridge.cpp pins.cpp -l wiringPi -l pthread
+//	g++ -o main Main.cpp hbridge.cpp io.cpp -l wiringPi -l pthread
 //to run: ./main
 
 //pin definitions

@@ -7,7 +7,7 @@
 //if we want to, we can use all code on another controller by replacing this cpp file and using the same header file
 
 //when you compile this code on a raspberry pi, link wiringPi and softPwm
-//g++ -o main Main.cpp hbridge.cpp pins.cpp -l wiringPi -l pthread
+//g++ -o main Main.cpp hbridge.cpp io.cpp -l wiringPi -l pthread
 
 
 
