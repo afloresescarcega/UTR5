@@ -1,0 +1,59 @@
+MPU9255 
+
+--------------------------------------
+datasheet:
+http://www.waveshare.com/w/upload/0/01/PS-MPU-9255.pdf
+http://www.waveshare.com/wiki/10_DOF_IMU_Sensor_Datasheets
+
+--------------------------------------
+mpu9255 is a 9 (sometimes 10) DOF IMU chip
+DOF (degree of freedom), IMU (inertial measurement unit)
+https://en.wikipedia.org/wiki/Inertial_measurement_unit
+3 axis gyroscope
+3 axis accelerometer
+3 axis magnetometer/compass
+1 axis barometer
+
+--------------------------------------
+some different mpu9255
+
+https://www.amazon.com/UCTRONICS-MPU-9255-E-compass-Accelerometer-Gyroscope/dp/B01DIGRR8U/ref=sr_1_2?s=electronics&ie=UTF8&qid=1491690513&sr=1-2&keywords=mpu9255
+
+https://www.amazon.com/Inertial-Measurement-Position-Temperature-Consumption/dp/B00VUHIDLA/ref=sr_1_1?s=electronics&ie=UTF8&qid=1491690513&sr=1-1&keywords=mpu9255 
+
+the main difference between the first one (the one we currently own) and the other one is that the first one can attatch more external sensors to i2c, they work the same way otherwise
+
+--------------------------------------
+the mpu9255 has internal storage registers. this is where the sensors store their data, and there are a few different settings, like i2c vs spi, and which hardware to turn on. it also has hardware FIFO for data. a list of registers is in the datasheet
+
+one way to read data from/ write things to the registers on the mpu9255 is i2c
+https://en.wikipedia.org/wiki/I%C2%B2C
+
+simple description of i2c:
+i2c basically consists of 2 lines, the data SDA and the clock SCL. SCL is just a clock, it alternates between high and low. the SDA line sends 8 bits of data per transmission, high=1 and low=0, this represents a byte that is being sent through the data line one bit at a time. there are start and stop bits that go on the beginning and end of each transmission so you can synchronize the master and slave devices. i2c usually uses the clock in the master device for SCL, and the format of the data bits is dependant on the design of the chip.
+
+--------------------------------------
+pins on MPU9255 chips
+vcc/ gnd: power, usually 3.3v
+sda/ scl: i2c data and clock
+int: interrupt pin, can set up the chip to send interrupts, connect to gpio if used
+ad0: i2c slave address
+fsync: frame synchronization digital input, ground if unused
+ncs: for spi mode (not i2c mode)
+eda/ ecl: i2c data and clock for exernal sensors
+
+--------------------------------------
+IMU CODE TODO LIST
+
+writing the driver for mpu-9255 it is reasonable for us to write our own driver and setup code this year, its just basic reading and writing to the chip's registers using an i2c library and looking up what settings we need to turn on in the datasheet. there are lots of examples on the internet we could do some testing with the RTIMULib library https://github.com/RTIMULib/RTIMULib2
+
+
+using i2c
+arduino has a Wire library for i2c https://www.arduino.cc/en/Reference/Wire
+pi can install i2c-tools package, or some other similar i2c library (also used for gpio expanders)
+however, if someone wants to write basic i2c communication code that has similar functionality to i2c-tools, that would be a great addition to our code
+
+--------------------------------------
+
+
+
