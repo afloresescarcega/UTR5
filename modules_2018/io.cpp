@@ -73,9 +73,9 @@ int imu_i2cRead(int bytes, int reg) {
 
 void imu_i2cWrite(int bytes, int reg, int data) {
 	if (bytes == 1) {
-		return wiringPiI2CWriteReg8(imu_fd, reg, data);
+		wiringPiI2CWriteReg8(imu_fd, reg, data);
 	}
 	else if (bytes == 2) {
-		return wiringPiI2CWriteReg16(imu_fd, reg);
+		wiringPiI2CWriteReg16(imu_fd, reg, data);
 	}
 }
