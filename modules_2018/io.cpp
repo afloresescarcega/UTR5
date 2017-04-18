@@ -2,14 +2,18 @@
 #include "io.h"
 #include <wiringPi.h>
 #include <softPwm.h>
+#include <wiringPiI2C.h>
 
-//these functions are to simplify code while we decide microcontroller
-//if we want to, we can use all code on another controller by replacing this cpp file and using the same header file
+//io file for pi
+//these functions are to simplify code between microcontrollers
+//we need an arduino version of this
 
 //when you compile this code on a raspberry pi, link wiringPi and softPwm
-//g++ -o main Main.cpp hbridge.cpp io.cpp -l wiringPi -l pthread
+//make sure i2c is enabled
+//g++ -o main Main.cpp hbridge.cpp io.cpp mpu9255.cpp -l wiringPi -l pthread
 
-
+#define IMU_I2C_ID			0x68
+int imu_fd;
 
 
 bool initGPIO() {
@@ -17,6 +21,7 @@ bool initGPIO() {
 	#ifndef WIRINGPIINIT
 	#define WIRINGPIINIT
 	wiringPiSetupGpio();
+	imu_fd = wiringPiI2CSetup(IMU_I2C_ID);
 	#endif
 }
 
@@ -52,4 +57,14 @@ void analogOut(int pin, int value) {
 
 int digitalIn(int pin) {
 	return digitalRead(pin);
+}
+
+//one byte
+int imu_i2cRead(int reg) {
+	return wiringPiI2CReadReg8(imu_fd, reg);
+}
+
+//one byte
+void imu_i2cWrite(int reg, int data) {
+	wiringPiI2CWriteReg8(imu_fd, reg, data);
 }
