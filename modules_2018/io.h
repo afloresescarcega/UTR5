@@ -11,6 +11,6 @@ void digitalOut(int pin, int value);
 void analogOut(int pin, int value);
 int digitalIn(int pin);
 
-int imu_i2cRead(int reg);
-void imu_i2cWrite(int reg, int data);
+int imu_i2cRead(int bytes, int reg);
+void imu_i2cWrite(int bytes, int reg, int data);
 #endif

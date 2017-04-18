@@ -13,7 +13,7 @@
 //g++ -o main Main.cpp hbridge.cpp io.cpp mpu9255.cpp -l wiringPi -l pthread
 
 #define IMU_I2C_ID			0x68
-int imu_fd;
+int imu_fd;		//id for wiringpi i2c
 
 
 bool initGPIO() {
@@ -22,6 +22,9 @@ bool initGPIO() {
 	#define WIRINGPIINIT
 	wiringPiSetupGpio();
 	imu_fd = wiringPiI2CSetup(IMU_I2C_ID);
+	if (imu_fd < 0) {
+		fprintf(stderr, "error initializing i2c for mpu9255\n");
+	}
 	#endif
 }
 
@@ -59,12 +62,20 @@ int digitalIn(int pin) {
 	return digitalRead(pin);
 }
 
-//one byte
-int imu_i2cRead(int reg) {
-	return wiringPiI2CReadReg8(imu_fd, reg);
+int imu_i2cRead(int bytes, int reg) {
+	if (bytes == 1) {
+		return wiringPiI2CReadReg8(imu_fd, reg);
+	}
+	else if (bytes == 2) {
+		return wiringPiI2CReadReg16(imu_fd, reg);
+	}
 }
 
-//one byte
-void imu_i2cWrite(int reg, int data) {
-	wiringPiI2CWriteReg8(imu_fd, reg, data);
+void imu_i2cWrite(int bytes, int reg, int data) {
+	if (bytes == 1) {
+		return wiringPiI2CWriteReg8(imu_fd, reg, data);
+	}
+	else if (bytes == 2) {
+		return wiringPiI2CWriteReg16(imu_fd, reg);
+	}
 }
